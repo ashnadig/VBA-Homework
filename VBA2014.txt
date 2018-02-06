@@ -1,0 +1,45 @@
+
+Sub CopyUniqueTicker2014()
+    Dim s1 As Worksheet, s2 As Worksheet
+    Set s1 = Sheets("2014")
+    s1.Range("A:A").Copy s1.Range("J:J")
+    s1.Range("J:J").RemoveDuplicates Columns:=1, Header:=xlNo
+End Sub
+
+
+Sub CalcTotalStockVolume2014()
+
+    Dim UnqTkrLastRow As Long
+
+    Dim TkrLastRow As Long
+    
+    Dim i, j As Long
+    
+    Dim StockTotal As Double
+    
+        
+    UnqTkrLastRow = Cells(Rows.Count, 10).End(xlUp).Row
+    
+    TkrLastRow = Cells(Rows.Count, 1).End(xlUp).Row
+
+    For i = 2 To UnqTkrLastRow
+    
+        StockTotal = 0
+
+    For j = 2 To TkrLastRow
+                
+            
+            If Cells(j, 1).Value = Cells(i, 10) Then
+            
+                    StockTotal = StockTotal + Cells(j, 7).Value
+            
+            End If
+
+    Next j
+        
+        Cells(i, 11).Value = StockTotal
+
+    Next i
+    
+End Sub
+
